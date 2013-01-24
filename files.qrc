@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>html/index.html</file>
+        <file>html/Catull.ttf</file>
+        <file>html/jquery.js</file>
+        <file>html/sha.js</file>
+        <file>html/storage.js</file>
+    </qresource>
+</RCC>
