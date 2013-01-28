@@ -16,7 +16,6 @@ Linux (64-bit)
 
 Install the required libraries:
 
-`apt-get install `
+`apt-get install libqtwebkit4`
 
 Download the binary executable (Debian 64-bit only currently)
-
