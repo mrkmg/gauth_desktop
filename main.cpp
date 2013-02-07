@@ -1,5 +1,8 @@
+//#define FLUX_DEBUG
 #include <QApplication>
-//#include <QWebInspector>
+#ifdef FLUX_DEBUG
+#include <QWebInspector>
+#endif
 #include <QGraphicsWebView>
 #include <QLayout>
 #include <QDir>
@@ -10,6 +13,8 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
+    app.setWindowIcon(QIcon(":/GoogleAuth.svg"));
 
     Html5ApplicationViewer viewer;
     QWebSettings *settings = viewer.webView()->page()->settings();
@@ -31,17 +36,18 @@ int main(int argc, char *argv[])
 
     rs->addJavascript(&viewer);
 
-    viewer.setOrientation(Html5ApplicationViewer::ScreenOrientationAuto);
-    viewer.webView()->setAcceptHoverEvents(true);
-    viewer.show();
-    viewer.webView()->setUrl(QUrl("qrc:/html/index.html"));
-
-    /*
+#ifdef FLUX_DEBUG
     settings->setAttribute(QWebSettings::DeveloperExtrasEnabled,true);
     QWebInspector inspector;
     inspector.setPage(viewer.webView()->page());
     inspector.setVisible(true);
-    */
+
+#endif
+
+    viewer.setOrientation(Html5ApplicationViewer::ScreenOrientationAuto);
+    viewer.webView()->setAcceptHoverEvents(true);
+    viewer.show();
+    viewer.webView()->setUrl(QUrl("qrc:/html/index.html"));
 
     return app.exec();
 }

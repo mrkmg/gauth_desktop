@@ -5,5 +5,8 @@
         <file>html/jquery.js</file>
         <file>html/sha.js</file>
         <file>html/storage.js</file>
+        <file>html/jquery.color.js</file>
+        <file>html/googleauth.js</file>
+        <file>GoogleAuth.svg</file>
     </qresource>
 </RCC>

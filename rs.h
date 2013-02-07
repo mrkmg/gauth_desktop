@@ -16,7 +16,7 @@ private:
 signals:
     
 public slots:
-    bool resize(int w, int h);
+    QObject* resize(int w, int h);
     
 };
 

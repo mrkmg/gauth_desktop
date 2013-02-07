@@ -3,90 +3,26 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script src="jquery.js"></script>
-        <script src="sha.js"></script>
+        <script src="jquery.color.js"></script>
+        <script src="googleauth.js"></script>
         <script src="storage.js"></script>
         <script type="text/javascript">
-        function dec2hex(s) { return (s < 15.5 ? '0' : '') + Math.round(s).toString(16); }
-        function hex2dec(s) { return parseInt(s, 16); }
 
-        function base32tohex(base32) {
-            var base32chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
-            var bits = "";
-            var hex = "";
-
-            for (var i = 0; i < base32.length; i++) {
-                var val = base32chars.indexOf(base32.charAt(i).toUpperCase());
-                bits += leftpad(val.toString(2), 5, '0');
-            }
-
-            for (var i = 0; i+4 <= bits.length; i+=4) {
-                var chunk = bits.substr(i, 4);
-                hex = hex + parseInt(chunk, 2).toString(16) ;
-            }
-            return hex;
-
-        }
-
-        function leftpad(str, len, pad) {
-            if (len + 1 >= str.length) {
-                str = Array(len + 1 - str.length).join(pad) + str;
-            }
-            return str;
-        }
-
-        function verifySecret(secret){
-            var key = base32tohex(secret);
-            var epoch = Math.round(new Date().getTime() / 1000.0);
-            var time = leftpad(dec2hex(Math.floor(epoch / 30)), 16, '0');
-
-            var hmacObj = new jsSHA(time, 'HEX');
-            var hmac = hmacObj.getHMAC(key, 'HEX', 'SHA-1', "HEX");
-
-            return !(hmac == 'KEY MUST BE IN BYTE INCREMENTS');
-        }
-
-        function getOtp(secret) {
-
-            var key = base32tohex(secret);
-            var epoch = Math.round(new Date().getTime() / 1000.0);
-            var time = leftpad(dec2hex(Math.floor(epoch / 30)), 16, '0');
-
-            var hmacObj = new jsSHA(time, 'HEX');
-            var hmac = hmacObj.getHMAC(key, 'HEX', 'SHA-1', "HEX");
-
-
-            if (hmac == 'KEY MUST BE IN BYTE INCREMENTS') {
-                $('#hmac').append($('<span/>').addClass('label important').append(hmac));
-            } else {
-                var offset = hex2dec(hmac.substring(hmac.length - 1));
-                var part1 = hmac.substr(0, offset * 2);
-                var part2 = hmac.substr(offset * 2, 8);
-                var part3 = hmac.substr(offset * 2 + 8, hmac.length - offset);
-            }
-
-            var otp = (hex2dec(hmac.substr(offset * 2, 8)) & hex2dec('7fffffff')) + '';
-            otp = (otp).substr(otp.length - 6, 6);
-
-            return otp
-        }
 
         function timer()
         {
-            var epoch = Math.round(new Date().getTime() / 1000.0);
-            var countDown = 30 - (epoch % 30);
+            var epoch = Math.round(new Date().getTime() / 100.0);
+            var countD = 300 - (epoch % 300)
+            var countDown = Math.round( countD / 10);
             $('#countdown').text(countDown);
-            var g = 99;
-            var r = 100;
-            if(countDown > 15 && countDown < 30){
-                g = Math.round(((countDown - 15)/15)*100);
-            } else if (countDown < 16){
-                g = 0;
-                r = Math.round(((countDown)/15)*100);
-            }
+            var percent = Math.round(((countD)/300)*100);
+            r = percent + 1;
+            g = percent - 1;
             $('#countdown').css({
                 'background':
                 '-webkit-linear-gradient(left, #bfffc9 '+g+'%,#ffbfbf '+r+'%)'
             });
+            if(countD == 50) startFadeoutAll();
             if(countDown == 30) updateAll();
         }
 
@@ -107,12 +43,17 @@
             $.jStorage.set('saved_keys',keys);
         }
 
+        function startFadeoutAll(){
+            var codes = $('.codeCode');
+            codes.each(function(){$(this).animate({color:'#F00'},4000);});
+        }
+
         function updateAll(){
             var codes = $('.code');
             codes.each(function(){
                 var secret = $(this).data('secret');
-                var otp = getOtp(secret);
-                $(this).find('.codeCode').text(otp);
+                var otp = googleauth.getOtp(secret);
+                $(this).find('.codeCode').text(otp).css({color:'#000'});
             });
         }
 
@@ -157,7 +98,6 @@
         function resizeBody(){
             var width = 400;
             var height = $('body').height();
-            console.log(height);
             RS.resize(width,height);
         }
 
@@ -166,7 +106,7 @@
                 ev.preventDefault();
                 var name = $('#name').val(),
                     secret = $('#secret').val();
-                if(verifySecret(secret)){
+                if(googleauth.verifySecret(secret)){
                     if(name != '' && secret != ''){
                         addNewKey(name,secret);
                         addOne(name,secret);
@@ -185,7 +125,7 @@
             });
             addAll();
             timer();
-            setInterval(timer,1000);
+            setInterval(timer,100);
             resizeBody();
             setTimeout(resizeBody,300);
         });

@@ -11,6 +11,8 @@ symbian:TARGET.UID3 = 0xE654FA24
 # Allow network access on Symbian
 symbian:TARGET.CAPABILITY += NetworkServices
 
+ICON = GoogleAuth.icns
+
 # Smart Installer package's UID
 # This UID is from the protected range and therefore the package will
 # fail to install if self-signed. By default qmake uses the unprotected
@@ -39,7 +41,12 @@ OTHER_FILES += \
     html/storage.js \
     html/sha.js \
     html/jquery.js \
-    html/index.html
+    html/index.html \
+    html/jquery.color.js \
+    html/googleauth.js \
+    GoogleAuth.rc
 
 HEADERS += \
     rs.h
+
+RC_FILE = GoogleAuth.rc
