@@ -78,6 +78,9 @@
             i.show();
             resizeBody();
             var doubleCheck = false;
+            iS.click(function(){
+                setClipboard($(this).text());
+            });
             rm.click(function(){
                 if(doubleCheck == false){
                     setTimeout(function(){
@@ -98,7 +101,11 @@
         function resizeBody(){
             var width = 400;
             var height = $('body').height();
-            RS.resize(width,height);
+            AppExtend.Resize(width,height);
+        }
+
+        function setClipboard(text){
+            AppExtend.SetClipboard(text);
         }
 
         $(function () {

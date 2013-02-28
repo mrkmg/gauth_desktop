@@ -27,7 +27,7 @@ ICON = GoogleAuth.icns
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    rs.cpp
+    appextend.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(html5applicationviewer/html5applicationviewer.pri)
@@ -47,6 +47,6 @@ OTHER_FILES += \
     GoogleAuth.rc
 
 HEADERS += \
-    rs.h
+    appextend.h
 
 RC_FILE = GoogleAuth.rc

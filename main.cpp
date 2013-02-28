@@ -8,7 +8,7 @@
 #include <QDir>
 #include <QWebFrame>
 #include "html5applicationviewer.h"
-#include "rs.h"
+#include "appextend.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,7 +18,9 @@ int main(int argc, char *argv[])
 
     Html5ApplicationViewer viewer;
     QWebSettings *settings = viewer.webView()->page()->settings();
-    RS *rs = new RS();
+
+    AppExtend *ae = new AppExtend();
+    ae->setupViewer(&viewer);
 
     settings->setAttribute(QWebSettings::LocalStorageEnabled,true);
     settings->setOfflineStorageDefaultQuota(124000);
@@ -34,7 +36,6 @@ int main(int argc, char *argv[])
     settings->setOfflineWebApplicationCachePath(QDir::homePath()+"/AppData/Roaming/google_auth_app/");
 #endif
 
-    rs->addJavascript(&viewer);
 
 #ifdef FLUX_DEBUG
     settings->setAttribute(QWebSettings::DeveloperExtrasEnabled,true);
