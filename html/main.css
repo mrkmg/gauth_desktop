@@ -1,0 +1,81 @@
+@font-face {
+	font-family: 'Catull';
+	src: url('Catull.ttf');
+}
+
+body{
+    margin:0;
+    background: -webkit-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
+}
+
+#head h1{
+    margin-bottom:1px;
+}
+
+#head h1 .googlefont{
+    font-family: 'Catull';
+}
+
+#head .sub{
+    font-size:10px;
+    margin-left:300px;
+}
+
+#countdown{
+    text-align:center;
+    font-size:10px;
+}
+
+button{
+    padding:5px;
+    border: none;
+    border-radius:5px;
+    font-size:12px;
+    -webkit-box-shadow: inset 0px 1px 0px 1px rgba(0, 0, 0, .5);
+    background: -webkit-linear-gradient(top, #7abcff 0%,#60abf8 44%,#4096ee 100%);
+}
+
+.code{
+    position:relative;
+    clear:both;
+    border-bottom:#777 solid thin;
+    margin:0;
+    padding:10px
+}
+
+.codeCode{
+    font-size: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.codeName{
+    font-size:14px;
+    text-align: center;
+}
+
+#codeHolder{
+    margin-top:8px;
+    padding:0;
+    border-top:#777 solid thin;
+    background: -webkit-linear-gradient(top, #a7c7dc 0%,#85b2d3 100%);
+}
+
+.codeRemove{
+	display:none;
+    position:absolute;
+    top:10px;
+    right:2px;
+    background: -webkit-linear-gradient(top, #ff7060 0%,#ff1a00 100%);
+}
+
+.code:hover .codeRemove{
+	display: block;
+}
+
+#add_new_holder{
+    background: -webkit-linear-gradient(top, #cdeb8e 0%,#a5c956 100%);
+    padding:2px;
+    border-top:#777 solid thin;
+    border-bottom:#777 solid thin;
+}

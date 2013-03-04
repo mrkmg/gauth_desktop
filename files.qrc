@@ -8,5 +8,7 @@
         <file>html/jquery.color.js</file>
         <file>html/googleauth.js</file>
         <file>GoogleAuth.svg</file>
+        <file>html/main.css</file>
+        <file>html/main.js</file>
     </qresource>
 </RCC>

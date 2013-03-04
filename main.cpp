@@ -47,6 +47,9 @@ int main(int argc, char *argv[])
 
     viewer.setOrientation(Html5ApplicationViewer::ScreenOrientationAuto);
     viewer.webView()->setAcceptHoverEvents(true);
+
+    Qt::WindowFlags flags = viewer.windowFlags();
+    viewer.setWindowFlags(flags | Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
     viewer.show();
     viewer.webView()->setUrl(QUrl("qrc:/html/index.html"));
 

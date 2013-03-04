@@ -44,7 +44,9 @@ OTHER_FILES += \
     html/index.html \
     html/jquery.color.js \
     html/googleauth.js \
-    GoogleAuth.rc
+    GoogleAuth.rc \
+    html/main.js \
+    html/main.css
 
 HEADERS += \
     appextend.h
